@@ -13,7 +13,7 @@ public class CacheCustomConfigCreateServer {
     private static final String EMP_CACHE_NAME = "Employee_Cache";
 
     public static void main(String[] args) {
-        try(Ignite ignite = Ignition.start("example-server.xml")) {
+        try(Ignite ignite = Ignition.start("example-ignite-config.xml")) {
             System.out.println();
             System.out.println(">>> CacheCustomConfigCreateServer example started.");
 
