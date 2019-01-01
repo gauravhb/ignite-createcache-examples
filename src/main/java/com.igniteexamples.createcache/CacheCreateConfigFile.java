@@ -5,17 +5,17 @@ import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
 
-public class CacheCreateServer {
+public class CacheCreateConfigFile {
     /** Cache name. */
     private static final String EMP_CACHE_NAME = "Employee_Cache";
 
     public static void main(String[] args) {
-        try(Ignite ignite = Ignition.start("example-server.xml")) {
+        try(Ignite ignite = Ignition.start("example-cache-server.xml")) {
             System.out.println();
-            System.out.println(">>> CacheCreateServer example started.");
+            System.out.println(">>> CacheCreateConfigFile example started.");
 
-            //Below line will create Employee Cache with default configuration
-            IgniteCache<Long, Employee> employeeCache = ignite.createCache(EMP_CACHE_NAME);
+            //Below line will load Employee Cache created during Ignite instance startup
+            IgniteCache<Long, Employee> employeeCache = ignite.cache(EMP_CACHE_NAME);
             System.out.println(">>> Cache created with name : " + ignite.cache(EMP_CACHE_NAME).getName());
 
             System.out.println(">>> Inserting record in the cache..");

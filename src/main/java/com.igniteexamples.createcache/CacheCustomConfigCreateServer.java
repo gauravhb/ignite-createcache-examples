@@ -4,18 +4,28 @@ import com.igniteexamples.model.Employee;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
+import org.apache.ignite.cache.CacheAtomicityMode;
+import org.apache.ignite.cache.CacheMode;
+import org.apache.ignite.configuration.CacheConfiguration;
 
-public class CacheCreateServer {
+public class CacheCustomConfigCreateServer {
     /** Cache name. */
     private static final String EMP_CACHE_NAME = "Employee_Cache";
 
     public static void main(String[] args) {
         try(Ignite ignite = Ignition.start("example-server.xml")) {
             System.out.println();
-            System.out.println(">>> CacheCreateServer example started.");
+            System.out.println(">>> CacheCustomConfigCreateServer example started.");
+
+            //Custom Cache configuration
+            CacheConfiguration<Long, Employee> cfg = new CacheConfiguration<>();
+            cfg.setCacheMode(CacheMode.PARTITIONED);
+            cfg.setName(EMP_CACHE_NAME);
+            cfg.setAtomicityMode(CacheAtomicityMode.ATOMIC);
+            cfg.setBackups(1);
 
             //Below line will create Employee Cache with default configuration
-            IgniteCache<Long, Employee> employeeCache = ignite.createCache(EMP_CACHE_NAME);
+            IgniteCache<Long, Employee> employeeCache = ignite.createCache(cfg);
             System.out.println(">>> Cache created with name : " + ignite.cache(EMP_CACHE_NAME).getName());
 
             System.out.println(">>> Inserting record in the cache..");
@@ -28,7 +38,6 @@ public class CacheCreateServer {
             employeeCache.put(1001L, employee);
 
             System.out.println(">>> Number of records in the cache : " + employeeCache.size());
-
         }
 
     }
