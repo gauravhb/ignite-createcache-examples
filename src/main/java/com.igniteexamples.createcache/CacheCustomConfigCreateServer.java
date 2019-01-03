@@ -24,7 +24,7 @@ public class CacheCustomConfigCreateServer {
             cfg.setAtomicityMode(CacheAtomicityMode.ATOMIC);
             cfg.setBackups(1);
 
-            //Below line will create Employee Cache with default configuration
+            //Below line will create Employee Cache with custom configuration
             IgniteCache<Long, Employee> employeeCache = ignite.createCache(cfg);
             System.out.println(">>> Cache created with name : " + ignite.cache(EMP_CACHE_NAME).getName());
 
